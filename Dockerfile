@@ -11,6 +11,8 @@ RUN dart pub get
 # Копируем весь проект в контейнер
 COPY . .
 
+COPY public/ /app/public/
+
 # Собираем сервер
 RUN dart compile exe bin/server.dart -o server
 
