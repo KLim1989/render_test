@@ -25,7 +25,7 @@ void main() async {
   logParentDirectoryStructure();
   // Укажите директорию для статических файлов
   final staticHandler = createStaticHandler(
-    './public', // Папка для статических файлов
+    '../app/public', // Папка для статических файлов
     defaultDocument: 'index.html', // Главный файл
   );
 
