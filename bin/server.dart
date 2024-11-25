@@ -7,8 +7,8 @@ void logCurrentDirectory() {
   print('Current working directory: ${Directory.current.path}');
 }
 
-void logParentDirectoryStructure() {
-  final parentDir = Directory('../app');
+void logDirectoryStructure(String path) {
+  final parentDir = Directory('$path');
   print('Contents of ${parentDir.path}:');
   try {
     parentDir.listSync().forEach((entity) {
@@ -21,8 +21,10 @@ void logParentDirectoryStructure() {
 
 void main() async {
 
-  logCurrentDirectory();
-  logParentDirectoryStructure();
+
+  logDirectoryStructure('.');
+  logDirectoryStructure('..');
+
   // Укажите директорию для статических файлов
   final staticHandler = createStaticHandler(
     '../app/public', // Папка для статических файлов
