@@ -16,13 +16,13 @@ void logDirectoryStructure(String path) {
 }
 
 void main() async {
-  
+
   logDirectoryStructure('./app');
   logDirectoryStructure('..');
 
   // Укажите директорию для статических файлов
   final staticHandler = createStaticHandler(
-    '../app/public', // Папка для статических файлов
+    'public', // Папка для статических файлов
     defaultDocument: 'index.html', // Главный файл
   );
 
