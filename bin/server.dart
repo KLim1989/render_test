@@ -3,10 +3,6 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_static/shelf_static.dart';
 
-void logCurrentDirectory() {
-  print('Current working directory: ${Directory.current.path}');
-}
-
 void logDirectoryStructure(String path) {
   final parentDir = Directory('$path');
   print('Contents of ${parentDir.path}:');
@@ -20,9 +16,8 @@ void logDirectoryStructure(String path) {
 }
 
 void main() async {
-
-
-  logDirectoryStructure('.');
+  
+  logDirectoryStructure('./app');
   logDirectoryStructure('..');
 
   // Укажите директорию для статических файлов
