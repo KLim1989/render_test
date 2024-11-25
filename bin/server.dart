@@ -8,7 +8,7 @@ void logCurrentDirectory() {
 }
 
 void logParentDirectoryStructure() {
-  final parentDir = Directory('../app/public');
+  final parentDir = Directory('../app');
   print('Contents of ${parentDir.path}:');
   try {
     parentDir.listSync().forEach((entity) {
