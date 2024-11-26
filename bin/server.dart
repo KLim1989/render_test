@@ -3,22 +3,8 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_static/shelf_static.dart';
 
-void logDirectoryStructure(String path) {
-  final parentDir = Directory('$path');
-  print('Contents of ${parentDir.path}:');
-  try {
-    parentDir.listSync().forEach((entity) {
-      print(entity.path);
-    });
-  } catch (e) {
-    print('Error reading parent directory: $e');
-  }
-}
 
 void main() async {
-
-  logDirectoryStructure('./app');
-  logDirectoryStructure('..');
 
   // Укажите директорию для статических файлов
   final staticHandler = createStaticHandler(
