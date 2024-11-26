@@ -9,7 +9,7 @@ void main() async {
   // Укажите директорию для статических файлов
   final staticHandler = createStaticHandler(
     'app/public', // Папка для статических файлов
-    defaultDocument: 'index.html', // Главный файл
+    defaultDocument: 'login.html', // Главный файл
   );
 
   // Оберните обработчик для улучшенной обработки ошибок
