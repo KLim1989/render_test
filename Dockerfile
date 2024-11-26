@@ -1,15 +1,11 @@
 # Используем официальный Dart SDK образ
 FROM dart:stable AS build
 
-RUN echo "details:" && ls
-
 # Устанавливаем рабочую директорию
 WORKDIR /app
 
 # Копируем весь проект в контейнер
 COPY . .
-RUN echo "Contents of /app in final image:" && ls
-
 RUN dart pub get
 
 # Собираем сервер
