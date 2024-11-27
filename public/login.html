@@ -34,6 +34,7 @@
     // Конфигурация FirebaseUI
     const uiConfig = {
         signInFlow: 'popup',
+
         signInOptions: [
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         ],
@@ -43,7 +44,8 @@
                 console.log("Sign-in successful!");
                 console.log("User details:", authResult.user);
                 console.log("Redirect URL:", redirectUrl);
-                return false; // Оставляем управление перенаправлением
+                window.location.href = '/protected.html';
+                return true; // Оставляем управление перенаправлением
             },
             // Вызов при отображении интерфейса
             uiShown: () => {
