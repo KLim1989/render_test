@@ -46,11 +46,17 @@
         console.log("Initialize the FirebaseUI Widget using Firebase.");
 
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
-        // The start method will wait until the DOM is loaded.
-        ui.start('#firebaseui-auth-container', uiConfig);
 
-        // onAuthStateChanged
-        console.log("onAuthStateChanged");
+
+
+        // Проверка на ожидающее перенаправление
+        if (ui.isPendingRedirect()) {
+            console.log("Pending redirect detected. Starting FirebaseUI...");
+            ui.start('#firebaseui-auth-container', uiConfig);
+        } else {
+            console.log("No pending redirect. Ready for a new login session.");
+            ui.start('#firebaseui-auth-container', uiConfig);
+        }
 
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
