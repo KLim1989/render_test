@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'package:firebase_admin/firebase_admin.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_static/shelf_static.dart';
-import 'package:firebase_admin/src/auth/credential.dart';
 
 import 'dart:convert'; // For decoding JWT
 import 'package:jose/jose.dart'; // For JWT verification
