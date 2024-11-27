@@ -18,7 +18,7 @@ void main() async {
 
   // Статические файлы
   final staticHandler = createStaticHandler(
-    'public', // Папка с вашими файлами
+    'app/public', // Папка с вашими файлами
     defaultDocument: 'login.html', // Главный файл
   );
 
