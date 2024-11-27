@@ -22,6 +22,8 @@
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
     <script type="text/javascript">
         // FirebaseUI config.
+        console.log("FirebaseUI config.");
+
         var uiConfig = {
           signInSuccessUrl: '/protected.html',
           signInOptions: [
@@ -39,19 +41,23 @@
         };
 
         // Initialize the FirebaseUI Widget using Firebase.
+        console.log("Initialize the FirebaseUI Widget using Firebase.");
+
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
         // The start method will wait until the DOM is loaded.
         ui.start('#firebaseui-auth-container', uiConfig);
 
+        // onAuthStateChanged
+        console.log("onAuthStateChanged");
+
         firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
+          if (user) {
             console.log("User is signed in:", user);
             // Redirect to the protected page
-<!--            window.location.href = '/protected.html';-->
-        } else {
+          } else {
             console.log("No user is signed in.");
-        }
-    });
+          }
+        });
     </script>
 </head>
 <body>
