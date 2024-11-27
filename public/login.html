@@ -19,31 +19,27 @@
     </script>
 
     <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
+    <link type="text/css" rel="stylesheet"
+          href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css"/>
     <script type="text/javascript">
         // FirebaseUI config.
         console.log("FirebaseUI config.");
 
         var uiConfig = {
-          signInSuccessUrl: '/protected.html',
-          signInOptions: [
-            // Leave the lines as is for the providers you want to offer your users.
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-          ],
-          // tosUrl and privacyPolicyUrl accept either url string or a callback
-          // function.
-          // Terms of service url/callback.
-          tosUrl: '<your-tos-url>',
-          // Privacy policy url/callback.
-          privacyPolicyUrl: function() {
-            window.location.assign('<your-privacy-policy-url>');
-          }
-          callbacks: {
-            signInFailure: function(error) {
-               console.error('Sign-in error:', error);
-            }
-          }
-        };
+    signInSuccessUrl: '/protected.html',
+    signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    ],
+    tosUrl: '<your-tos-url>',
+    privacyPolicyUrl: function() {
+        window.location.assign('<your-privacy-policy-url>');
+    },
+    callbacks: { // добавляем обработчики
+        signInFailure: function(error) {
+            console.error('Sign-in error:', error);
+        }
+    }
+};
 
         // Initialize the FirebaseUI Widget using Firebase.
         console.log("Initialize the FirebaseUI Widget using Firebase.");
