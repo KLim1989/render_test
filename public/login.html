@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Sample FirebaseUI App</title>
+    <title>FirebaseUI Debug Example</title>
     <!-- Подключение Firebase и FirebaseUI -->
     <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth-compat.js"></script>
@@ -10,12 +10,11 @@
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
 </head>
 <body>
-<h1>Добро пожаловать в приложение</h1>
-
+<h1>FirebaseUI Debug Example</h1>
 <!-- Кнопка для запуска авторизации -->
 <button id="login-button">Логин</button>
 
-<!-- Контейнер для FirebaseUI, скрыт по умолчанию -->
+<!-- Контейнер для FirebaseUI -->
 <div id="firebaseui-auth-container" style="display: none;"></div>
 
 <script type="text/javascript">
@@ -38,10 +37,21 @@
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         ],
         callbacks: {
-            // Callback для успешного завершения входа
-            signInSuccessWithAuthResult: (authResult) => {
-                console.log("Sign-in successful. User:", authResult.user);
-                return false; // Возвращаем false, чтобы избежать автоматического перенаправления
+            // Вызов при успешной авторизации
+            signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+                console.log("Sign-in successful!");
+                console.log("User details:", authResult.user);
+                console.log("Redirect URL:", redirectUrl);
+                return false; // Оставляем управление перенаправлением
+            },
+            // Вызов при отображении интерфейса
+            uiShown: () => {
+                console.log("FirebaseUI shown.");
+            },
+            // Вызов при ошибке
+            signInFailure: (error) => {
+                console.error("Sign-in failure:", error);
+                return Promise.resolve();
             }
         }
     };
@@ -58,16 +68,29 @@
         ui.start('#firebaseui-auth-container', uiConfig);
     });
 
-    // Отслеживание статуса авторизации
+    // Отслеживание состояния авторизации
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
             console.log("User is signed in:", user);
-            // Здесь можно перенаправить пользователя на защищённую страницу
-            // Например: window.location.href = '/protected.html';
+            // Например, перенаправляем пользователя на защищённую страницу
+            // window.location.href = '/protected.html';
         } else {
             console.log("No user is signed in.");
         }
     });
+
+    // Отладка перенаправления (особенно для Google/редиректов)
+    firebase.auth().getRedirectResult()
+        .then((result) => {
+            if (result.user) {
+                console.log("Redirect result successful. User:", result.user);
+            } else {
+                console.log("No redirect result.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error during redirect:", error);
+        });
 </script>
 </body>
 </html>
