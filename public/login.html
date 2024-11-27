@@ -38,6 +38,11 @@
           privacyPolicyUrl: function() {
             window.location.assign('<your-privacy-policy-url>');
           }
+          callbacks: {
+            signInFailure: function(error) {
+               console.error('Sign-in error:', error);
+            }
+          }
         };
 
         // Initialize the FirebaseUI Widget using Firebase.
