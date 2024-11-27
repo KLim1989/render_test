@@ -16,20 +16,10 @@
       appId: "1:378184527150:web:45095a844ab3ffe35c5ebf"
       };
         firebase.initializeApp(firebaseConfig);
-
-        firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        console.log("User is signed in:", user);
-<!--        window.location.href = '/protected.html';-->
-    } else {
-        console.log("No user is signed in.");
-    }
-    });
     </script>
 
     <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet"
-          href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css"/>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
     <script type="text/javascript">
         // FirebaseUI config.
         var uiConfig = {
@@ -52,6 +42,16 @@
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
         // The start method will wait until the DOM is loaded.
         ui.start('#firebaseui-auth-container', uiConfig);
+
+        firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            console.log("User is signed in:", user);
+            // Redirect to the protected page
+<!--            window.location.href = '/protected.html';-->
+        } else {
+            console.log("No user is signed in.");
+        }
+    });
     </script>
 </head>
 <body>
