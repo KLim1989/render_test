@@ -10,8 +10,13 @@
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
 </head>
 <body>
-<h1>FirebaseUI Login</h1>
-<div id="firebaseui-auth-container"></div>
+<h1>FirebaseUI Debug Example</h1>
+<!-- Кнопка для запуска авторизации -->
+<button id="login-button">Логин</button>
+
+<!-- Контейнер для FirebaseUI -->
+<div id="firebaseui-auth-container" style="display: none;"></div>
+
 <script type="text/javascript">
     // Конфигурация Firebase
     const firebaseConfig = {
@@ -28,7 +33,6 @@
 
     // Конфигурация FirebaseUI
     const uiConfig = {
-        signInSuccessUrl: '/protected.html',
         signInFlow: 'popup',
         signInOptions: [
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -39,7 +43,7 @@
                 console.log("Sign-in successful!");
                 console.log("User details:", authResult.user);
                 console.log("Redirect URL:", redirectUrl);
-                return false;
+                return false; // Оставляем управление перенаправлением
             },
             // Вызов при отображении интерфейса
             uiShown: () => {
@@ -55,7 +59,39 @@
 
     // Инициализация FirebaseUI
     const ui = new firebaseui.auth.AuthUI(firebase.auth());
-    ui.start('#firebaseui-auth-container', uiConfig);
+
+    // Обработчик события нажатия на кнопку "Логин"
+    document.getElementById('login-button').addEventListener('click', () => {
+        console.log("Login button clicked. Starting FirebaseUI...");
+        // Показываем контейнер для FirebaseUI
+        document.getElementById('firebaseui-auth-container').style.display = 'block';
+        // Запускаем FirebaseUI
+        ui.start('#firebaseui-auth-container', uiConfig);
+    });
+
+    // Отслеживание состояния авторизации
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            console.log("User is signed in:", user);
+            // Например, перенаправляем пользователя на защищённую страницу
+            // window.location.href = '/protected.html';
+        } else {
+            console.log("No user is signed in.");
+        }
+    });
+
+    // Отладка перенаправления (особенно для Google/редиректов)
+    firebase.auth().getRedirectResult()
+        .then((result) => {
+            if (result.user) {
+                console.log("Redirect result successful. User:", result.user);
+            } else {
+                console.log("No redirect result.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error during redirect:", error);
+        });
 </script>
 </body>
 </html>
