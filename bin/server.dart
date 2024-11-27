@@ -18,7 +18,7 @@ void main() async {
 
   // Статические файлы
   final staticHandler = createStaticHandler(
-    'app/public', // Папка с вашими файлами
+    'public', // Папка с вашими файлами
     defaultDocument: 'login.html', // Главный файл
   );
 
@@ -33,22 +33,24 @@ void main() async {
 
   router.get('/protected.html', (Request request) async {
     final authHeader = request.headers['Authorization'];
+    stdout.writeln('authHeader cheking: $authHeader');
+    return Response.found('/protected.html');
 
-    if (authHeader == null || !authHeader.startsWith('Bearer ')) {
-      return Response.found('/login.html');
-    }
-
-    final token = authHeader.substring(7); // Извлекаем токен
-    print ('token is: $token');
-    try {
-      // Проверяем токен через Firebase Auth
-      await verifyIdToken(token, firebaseConfig['projectId']!);
-
-      return Response.found('/protected.html');
-    } catch (e) {
-      // Если токен недействителен, перенаправляем на /login.html
-      return Response.found('/login.html');
-    }
+    // // if (authHeader == null || !authHeader.startsWith('Bearer ')) {
+    // //   return Response.found('/login.html');
+    // // }
+    //
+    // final token = authHeader.substring(7); // Извлекаем токен
+    // print ('token is: $token');
+    // try {
+    //   // Проверяем токен через Firebase Auth
+    //   await verifyIdToken(token, firebaseConfig['projectId']!);
+    //
+    //   return Response.found('/protected.html');
+    // } catch (e) {
+    //   // Если токен недействителен, перенаправляем на /login.html
+    //   return Response.found('/login.html');
+    // }
   });
 
   // Обработчик корневого URL (редирект на /login.html)
